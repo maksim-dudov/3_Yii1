@@ -95,4 +95,20 @@ class Rate extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	/**
+	 * Метод удаляет все тарифы
+	 */
+	public function dropAllRates()
+	{
+		return false;
+	}
+
+	/**
+	 * Метод заполняет тарифами имеющиеся сезоны в имеющихся отелей
+	 */
+	public function fillSeasonsWithRates()
+	{
+		return false;
+	}
 }
