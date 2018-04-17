@@ -95,4 +95,20 @@ class Season extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	/**
+	 * Метод удаляет все сезоны
+	 */
+	public function dropAllSeasons()
+	{
+		return false;
+	}
+
+	/**
+	 * Метод заполняет отели сезонами со случайными датами начала и конца
+	 */
+	public function fillHotelsWithSeasons()
+	{
+		return false;
+	}
 }
