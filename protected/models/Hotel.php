@@ -90,4 +90,20 @@ class Hotel extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	/**
+	 * Метод удаляет все отели в базе
+	 */
+	public function dropAllHotels()
+	{
+		return false;
+	}
+
+	/**
+	 * Метод создаёт случайные отели
+	 */
+	public function createRandomHotels()
+	{
+		return false;
+	}
 }
