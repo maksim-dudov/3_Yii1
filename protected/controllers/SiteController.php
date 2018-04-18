@@ -99,6 +99,14 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Отображает страницу для установки начальных тестовых данных
+	 */
+	public function actionInit()
+	{
+		$this->render('init');
+	}
+
+	/**
 	 * Logs out the current user and redirect to homepage.
 	 */
 	public function actionLogout()
