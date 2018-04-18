@@ -104,7 +104,10 @@ class Hotel extends CActiveRecord
 	 */
 	public function createRandomHotels()
 	{
-		return false;
+		return Yii::app()->db->createCommand()
+		->insert('hotel', array(
+			'title'=>'Hotel_'.rand(1,10),
+		));
 	}
 
 	/**
@@ -113,10 +116,9 @@ class Hotel extends CActiveRecord
 	 */
 	static public function getCurrentState()
 	{
-		$return = [];
-		$return[] = 'Hotel_'.rand(1,10);
-		$return[] = 'Hotel_'.rand(1,10);
-		$return[] = 'Hotel_'.rand(1,10);
-		return array_unique($return);
+		return Yii::app()->db->createCommand()
+			->select('title')
+			->from('hotel')
+			->queryAll();
 	}
 }

@@ -99,15 +99,35 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Создаёт случайный отель
+	 */
+	public function actionCreateRandomHotel()
+	{
+		$hotel = new Hotel();
+		$hotel->createRandomHotels();
+		$this->redirect($this->createUrl('site/init'), 301);
+	}
+
+	/**
 	 * Отображает страницу для установки начальных тестовых данных
 	 */
 	public function actionInit()
+	{
+		$currentState = self::getCurrentState();
+		$this->render('init',array('currentState' => $currentState));
+	}
+
+	/**
+	 * Возвращает текущее состояние
+	 * @return array
+	 */
+	public static function getCurrentState()
 	{
 		$currentState = [];
 		$currentState['hotels'] = 	Hotel::getCurrentState();
 //		$currentState['seasons'] = 	Seasons::getCurrentState();
 //		$currentState['rates'] = 	Rate::getCurrentState();
-		$this->render('init',array('currentState' => $currentState));
+		return $currentState;
 	}
 
 	/**
