@@ -1,2 +1,2 @@
 # 3_Yii1
-# test project based on Yii 1
+# ORM and native sql perfomance testing
