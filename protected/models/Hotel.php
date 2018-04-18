@@ -106,4 +106,13 @@ class Hotel extends CActiveRecord
 	{
 		return false;
 	}
+
+	/**
+	 * Возвращает текущее состояние - набо существующих записей в БД
+	 */
+	static public function getCurrentState()
+	{
+		$return = [];
+		return $return;
+	}
 }

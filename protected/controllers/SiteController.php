@@ -103,6 +103,10 @@ class SiteController extends Controller
 	 */
 	public function actionInit()
 	{
+		$currentState = [];
+		$currentState['hotels'] = Hotel::getCurrentState();
+//		$currentState['seasons'] = Seasons::getCurrentState();
+//		$currentState['rates'] = Rate::getCurrentState();
 		$this->render('init');
 	}
 
