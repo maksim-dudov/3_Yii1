@@ -108,11 +108,15 @@ class Hotel extends CActiveRecord
 	}
 
 	/**
-	 * Возвращает текущее состояние - набо существующих записей в БД
+	 * Возвращает текущее состояние - набо существующих записей в БД.
+	 * Временно возвращает рандомные данные.
 	 */
 	static public function getCurrentState()
 	{
 		$return = [];
-		return $return;
+		$return[] = 'Hotel_'.rand(1,10);
+		$return[] = 'Hotel_'.rand(1,10);
+		$return[] = 'Hotel_'.rand(1,10);
+		return array_unique($return);
 	}
 }
