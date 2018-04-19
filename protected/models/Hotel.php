@@ -100,14 +100,28 @@ class Hotel extends CActiveRecord
 	}
 
 	/**
-	 * Метод создаёт случайные отели
+	 * Метод создаёт случайные отели.
 	 */
 	public function createRandomHotels()
 	{
-		return Yii::app()->db->createCommand()
-		->insert('hotel', array(
-			'title'=>'Hotel_'.rand(1,10),
-		));
+		$numlimit=10;
+		$existingList=$this->getCurrentState();
+		$doesUniquePossible=false;
+		for($i=1; $i<=$numlimit*$numlimit; $i++){
+			$newHotelTitle='Hotel_'.rand(1,$numlimit);
+			$needle['title']=$newHotelTitle;
+			if(in_array($needle,$existingList)===false) {
+				$doesUniquePossible=true;
+				break;
+			}
+			unset($needle);
+		}
+		return $doesUniquePossible===false
+			? false
+			: Yii::app()->db->createCommand()
+				->insert('hotel', array(
+					'title'=>$newHotelTitle,
+				));
 	}
 
 	/**
