@@ -101,6 +101,8 @@ class Hotel extends CActiveRecord
 
 	/**
 	 * Метод создаёт случайные отели.
+	 * Имена задают по маске рандомно.
+	 * Не создаёт, если отель с таким именем уже существует.
 	 */
 	public function createRandomHotels()
 	{
