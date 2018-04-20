@@ -96,7 +96,8 @@ class Hotel extends CActiveRecord
 	 */
 	public function dropAllHotels()
 	{
-		return false;
+		return Yii::app()->db->createCommand()
+			->delete('hotel');
 	}
 
 	/**

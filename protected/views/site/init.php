@@ -11,4 +11,6 @@ foreach($currentState['hotels'] as $hotel)
 
 <?php
 echo CHtml::link('Создать случайный отель',array('site/createRandomHotel'));
+echo '<br /><br />';
+echo CHtml::link('Удалить все отели',array('site/dropAllHotels'));
 ?>

@@ -109,6 +109,16 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Удаляет все имеющиеся отели.
+	 */
+	public function actionDropAllHotels()
+	{
+		$hotel = new Hotel();
+		$hotel->dropAllHotels();
+		$this->redirect($this->createUrl('site/init'), 301);
+	}
+
+	/**
 	 * Отображает страницу для установки начальных тестовых данных
 	 */
 	public function actionInit()
