@@ -10,6 +10,12 @@
 class Hotel extends CActiveRecord
 {
 	/**
+	 * Максимальное число отелей
+	 * @var int
+	 */
+	protected $hotelsLimit = 10;
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
@@ -105,12 +111,9 @@ class Hotel extends CActiveRecord
 	 */
 	public function createAllHotels()
 	{
-		$numlimit=10;
 		do{
 			$this->createRandomHotels();
-		} while(count($this->getCurrentState())<$numlimit);
-
-
+		} while(count($this->getCurrentState())<$this->hotelsLimit);
 	}
 
 	/**
@@ -120,14 +123,13 @@ class Hotel extends CActiveRecord
 	 */
 	public function createRandomHotels()
 	{
-		$numlimit=10;
 		$existingList=$this->getCurrentState();
-		if(count($existingList)>=$numlimit)
+		if(count($existingList)>=$this->hotelsLimit)
 			return false;
 
 		$doesUniquePossible=false;
-		for($i=1; $i<=$numlimit*$numlimit; $i++){
-			$newHotelTitle='Hotel_'.rand(1,$numlimit);
+		for($i=1; $i<=$this->hotelsLimit^2; $i++){
+			$newHotelTitle='Hotel_'.rand(1,$this->hotelsLimit);
 			$needle['title']=$newHotelTitle;
 			if(in_array($needle,$existingList)===false) {
 				$doesUniquePossible=true;
