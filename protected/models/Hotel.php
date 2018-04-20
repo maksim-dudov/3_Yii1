@@ -108,6 +108,8 @@ class Hotel extends CActiveRecord
 	{
 		$numlimit=10;
 		$existingList=$this->getCurrentState();
+		if(count($existingList)>=$numlimit)
+			return false;
 		$doesUniquePossible=false;
 		for($i=1; $i<=$numlimit*$numlimit; $i++){
 			$newHotelTitle='Hotel_'.rand(1,$numlimit);
