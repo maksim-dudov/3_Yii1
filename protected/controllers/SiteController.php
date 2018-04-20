@@ -109,6 +109,16 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Заполняет базу полным набором отелей
+	 */
+	public function actionCreateAllHotels()
+	{
+		$hotel = new Hotel();
+		$hotel->createAllHotels();
+		$this->redirect($this->createUrl('site/init'), 301);
+	}
+
+	/**
 	 * Удаляет все имеющиеся отели.
 	 */
 	public function actionDropAllHotels()

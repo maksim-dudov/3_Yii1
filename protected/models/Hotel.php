@@ -101,6 +101,19 @@ class Hotel extends CActiveRecord
 	}
 
 	/**
+	 * Метод создает максимальный набор уникальных отелей
+	 */
+	public function createAllHotels()
+	{
+		$numlimit=10;
+		do{
+			$this->createRandomHotels();
+		} while(count($this->getCurrentState())<$numlimit);
+
+
+	}
+
+	/**
 	 * Метод создаёт случайные отели.
 	 * Имена задают по маске рандомно.
 	 * Не создаёт, если отель с таким именем уже существует.
@@ -111,6 +124,7 @@ class Hotel extends CActiveRecord
 		$existingList=$this->getCurrentState();
 		if(count($existingList)>=$numlimit)
 			return false;
+
 		$doesUniquePossible=false;
 		for($i=1; $i<=$numlimit*$numlimit; $i++){
 			$newHotelTitle='Hotel_'.rand(1,$numlimit);
