@@ -4,7 +4,19 @@
 <?php
 foreach($currentState['hotels'] as $hotel)
 {
-    echo '<li>'.$hotel['title'].'</li>';
+    echo '<li>'.$hotel['title'];
+    if (isset($currentState['seasons'][$hotel]))
+    {
+        echo '<ul>';
+        foreach($currentState['seasons'][$hotel] as $season)
+        {
+            echo '<li>';
+            echo $season['title'].' '.$season['start'].'-'.$season['start'];
+            echo '</li>';
+        }
+        echo '</ul>';
+    }
+    echo '</li>';
 }
 ?>
 </ul>
