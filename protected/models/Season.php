@@ -7,6 +7,8 @@
  * @property string $uid
  * @property string $hotel_uid
  * @property string $title
+ * @property string $start
+ * @property string $end
  */
 class Season extends CActiveRecord
 {
@@ -29,9 +31,10 @@ class Season extends CActiveRecord
 			array('hotel_uid', 'required'),
 			array('hotel_uid', 'length', 'max'=>10),
 			array('title', 'length', 'max'=>255),
+			array('start, end', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('uid, hotel_uid, title', 'safe', 'on'=>'search'),
+			array('uid, hotel_uid, title, start, end', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,6 +58,8 @@ class Season extends CActiveRecord
 			'uid' => 'Uid',
 			'hotel_uid' => 'Hotel Uid',
 			'title' => 'Title',
+			'start' => 'Start',
+			'end' => 'End',
 		);
 	}
 
@@ -79,6 +84,8 @@ class Season extends CActiveRecord
 		$criteria->compare('uid',$this->uid,true);
 		$criteria->compare('hotel_uid',$this->hotel_uid,true);
 		$criteria->compare('title',$this->title,true);
+		$criteria->compare('start',$this->start,true);
+		$criteria->compare('end',$this->end,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
