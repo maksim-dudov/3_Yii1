@@ -124,7 +124,20 @@ class Season extends CActiveRecord
 	 */
 	static public function getCurrentState()
 	{
-		$return = [];
-		return $return;
+		$hotels = Hotel::getCurrentState();
+		$seasons = [];
+		foreach($hotels as $hotel){
+			$start_shift = rand(0, 10);
+			$end_shift = rand(11, 100);
+
+			$start = new DateTime('now');
+			$start->modify('+'.$start_shift.' day');
+			$seasons[$hotel['title']][0]['start'] = $start->format('d.m.Y');
+
+			$end = new DateTime('now');
+			$end->modify('+'.$end_shift .' day');
+			$seasons[$hotel['title']][0]['end'] = $end->format('d.m.Y');
+		}
+		return $seasons;
 	}
 }

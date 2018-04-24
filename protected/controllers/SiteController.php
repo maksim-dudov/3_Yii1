@@ -145,7 +145,7 @@ class SiteController extends Controller
 	{
 		$currentState = [];
 		$currentState['hotels'] = 	Hotel::getCurrentState();
-//		$currentState['seasons'] = 	Seasons::getCurrentState();
+		$currentState['seasons'] = 	Season::getCurrentState();
 //		$currentState['rates'] = 	Rate::getCurrentState();
 		return $currentState;
 	}
