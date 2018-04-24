@@ -131,12 +131,11 @@ class Season extends CActiveRecord
 			$end_shift = rand(11, 100);
 
 			$start = new DateTime('now');
-			$start->modify('+'.$start_shift.' day');
-			$seasons[$hotel['title']][0]['start'] = $start->format('d.m.Y');
-
 			$end = new DateTime('now');
-			$end->modify('+'.$end_shift .' day');
-			$seasons[$hotel['title']][0]['end'] = $end->format('d.m.Y');
+
+			$seasons[$hotel['title']][0]['start'] = $start->modify('+'.$start_shift.' day')->format('d.m.Y');
+			$seasons[$hotel['title']][0]['end'] = $end->modify('+'.$end_shift.' day')->format('d.m.Y');
+
 		}
 		return $seasons;
 	}
