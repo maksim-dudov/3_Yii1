@@ -32,4 +32,6 @@ echo CHtml::link('Удалить все отели',array('site/dropAllHotels'))
 echo '<br /><br />';
 echo '<br /><br />';
 echo CHtml::link('Создать в отелях сезоны',array('site/createAllSeasons'));
+echo '<br /><br />';
+echo CHtml::link('Удалить все сезоны',array('site/dropAllSeasons'));
 ?>

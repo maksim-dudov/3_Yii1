@@ -108,7 +108,8 @@ class Season extends CActiveRecord
 	 */
 	public function dropAllSeasons()
 	{
-		return false;
+		return Yii::app()->db->createCommand()
+			->delete('season');
 	}
 
 	/**

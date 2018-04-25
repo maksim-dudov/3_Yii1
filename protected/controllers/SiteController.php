@@ -129,6 +129,16 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Удаляет все имеющиеся сезоны.
+	 */
+	public function actionDropAllSeasons()
+	{
+		$season = new Season();
+		$season->dropAllSeasons();
+		$this->redirect($this->createUrl('site/init'), 301);
+	}
+
+	/**
 	 * Удаляет все имеющиеся отели.
 	 */
 	public function actionDropAllHotels()
