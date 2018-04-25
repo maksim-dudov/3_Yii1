@@ -119,6 +119,16 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Заполняет имеющиеся отели набором случайных сезонов
+	 */
+	public function actionCreateAllSeasons()
+	{
+		$season = new Season();
+		$season->fillHotelsWithSeasons();
+		$this->redirect($this->createUrl('site/init'), 301);
+	}
+
+	/**
 	 * Удаляет все имеющиеся отели.
 	 */
 	public function actionDropAllHotels()

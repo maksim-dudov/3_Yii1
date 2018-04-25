@@ -152,7 +152,7 @@ class Hotel extends CActiveRecord
 	static public function getCurrentState()
 	{
 		return Yii::app()->db->createCommand()
-			->select('title')
+			->select('uid,title')
 			->from('hotel')
 			->queryAll();
 	}

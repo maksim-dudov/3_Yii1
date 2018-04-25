@@ -29,4 +29,7 @@ echo '<br /><br />';
 echo CHtml::link('Создать случайный отель',array('site/createRandomHotel'));
 echo '<br /><br />';
 echo CHtml::link('Удалить все отели',array('site/dropAllHotels'));
+echo '<br /><br />';
+echo '<br /><br />';
+echo CHtml::link('Создать в отелях сезоны',array('site/createAllSeasons'));
 ?>
