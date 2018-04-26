@@ -129,15 +129,15 @@ class Season extends CActiveRecord
 				$start = new DateTime('now');
 				$end = new DateTime('now');
 
-				$seasons[$hotel['title']][$i]['start'] = $start->modify('+'.$start_shift.' day')->format('d.m.Y');
-				$seasons[$hotel['title']][$i]['end'] = $end->modify('+'.$end_shift.' day')->format('d.m.Y');
+				$seasons[$hotel['title']][$i]['start'] = $start->modify('+'.$start_shift.' day')->format('Y-m-d');
+				$seasons[$hotel['title']][$i]['end'] = $end->modify('+'.$end_shift.' day')->format('Y-m-d');
 
 				Yii::app()->db->createCommand()
 					->insert('season', array(
 						'title' => 		'Сезон',
 						'hotel_uid' => 	$hotel['uid'],
-						'start' => 		$start->modify('+'.$start_shift.' day')->format('d.m.Y'),
-						'end' => 		$end->modify('+'.$end_shift.' day')->format('d.m.Y')
+						'start' => 		$start->modify('+'.$start_shift.' day')->format('Y-m-d'),
+						'end' => 		$end->modify('+'.$end_shift.' day')->format('Y-m-d')
 					));
 
 				$start_shift = $end_shift+1;
@@ -152,25 +152,21 @@ class Season extends CActiveRecord
 	 */
 	static public function getCurrentState()
 	{
+		$seasons = Yii::app()->db->createCommand()
+			->select('uid,title,hotel_uid,start,end')
+			->from('season')
+			->queryAll();
 		$hotels = Hotel::getCurrentState();
-		$seasons = [];
-		foreach($hotels as $hotel){
-			$start_shift = 0;
-			$end_shift = 1;
-			$i = 0;
-			while($end_shift <=100){
-				$end_shift = $end_shift + rand(1, 30);
-
-				$start = new DateTime('now');
-				$end = new DateTime('now');
-
-				$seasons[$hotel['title']][$i]['start'] = $start->modify('+'.$start_shift.' day')->format('d.m.Y');
-				$seasons[$hotel['title']][$i]['end'] = $end->modify('+'.$end_shift.' day')->format('d.m.Y');
-
-				$start_shift = $end_shift+1;
-				$i++;
+		$return = [];
+		foreach($hotels as $hotel) {
+			$return[$hotel['title']] = array();
+			foreach($seasons as $season) {
+				if ($season['hotel_uid'] == $hotel['uid'])
+				{
+					$return[$hotel['title']][] = $season;
+				}
 			}
 		}
-		return $seasons;
+		return $return;
 	}
 }
