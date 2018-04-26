@@ -163,10 +163,26 @@ class SiteController extends Controller
 	 */
 	public static function getCurrentState()
 	{
+		$hotels = Hotel::getCurrentState();
+		$seasons = Season::getCurrentState();
+
 		$currentState = [];
-		$currentState['hotels'] = 	Hotel::getCurrentState();
-		$currentState['seasons'] = 	Season::getCurrentState();
+		$currentState['hotels'] = 	$hotels;
+		$currentState['seasons'] = 	$seasons;
 //		$currentState['rates'] = 	Rate::getCurrentState();
+
+		$return = [];
+		foreach($hotels as $hotel) {
+			$return[$hotel['title']] = array();
+			foreach($seasons as $season) {
+				if ($season['hotel_uid'] == $hotel['uid'])
+				{
+					$return[$hotel['title']][] = $season;
+				}
+			}
+		}
+		$currentState['state'] = $return;
+
 		return $currentState;
 	}
 

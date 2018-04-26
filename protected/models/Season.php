@@ -148,28 +148,14 @@ class Season extends CActiveRecord
 	}
 
 	/**
-	 * Возвращает текущее состояние - набор отелей с существующими записями сезонов
-	 * @return array список отелей с сезонами
-	 * @todo слишком много возвращает метод. он должен возвращать только сезоны, а в общий массив надо сводить в
-	 * отдеьном месте
+	 * Возвращает текущее состояние - набор имеющихся в базе сезонов
+	 * @return array список сезонов
 	 */
 	static public function getCurrentState()
 	{
-		$seasons = Yii::app()->db->createCommand()
+		return Yii::app()->db->createCommand()
 			->select('uid,title,hotel_uid,start,end')
 			->from('season')
 			->queryAll();
-		$hotels = Hotel::getCurrentState();
-		$return = [];
-		foreach($hotels as $hotel) {
-			$return[$hotel['title']] = array();
-			foreach($seasons as $season) {
-				if ($season['hotel_uid'] == $hotel['uid'])
-				{
-					$return[$hotel['title']][] = $season;
-				}
-			}
-		}
-		return $return;
 	}
 }

@@ -6,10 +6,10 @@ $echo = '';
 foreach($currentState['hotels'] as $hotel)
 {
     $echo .= '<li>'.$hotel['title'];
-    if (isset($currentState['seasons'][$hotel['title']]))
+    if (isset($currentState['state'][$hotel['title']]))
     {
         $echo .= '<ul>';
-        foreach($currentState['seasons'][$hotel['title']] as $season)
+        foreach($currentState['state'][$hotel['title']] as $season)
         {
             $echo .= '<li>';
             $echo .= $season['start'].' - '.$season['end'];
