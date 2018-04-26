@@ -148,7 +148,8 @@ class Season extends CActiveRecord
 	}
 
 	/**
-	 * Возвращает текущее состояние - набо существующих записей в БД
+	 * Возвращает текущее состояние - набор отелей с существующими записями сезонов
+	 * @return array список отелей с сезонами
 	 */
 	static public function getCurrentState()
 	{
