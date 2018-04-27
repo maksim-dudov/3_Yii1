@@ -128,7 +128,18 @@ class Rate extends CActiveRecord
 	 */
 	public function fillSeasonsWithRates()
 	{
-		return false;
+		$seasons = Season::getCurrentState();
+		foreach($seasons as $season){
+			$ratesFormCurrentPeriod = $this->getRandomRates();
+			foreach($ratesFormCurrentPeriod as $curRate){
+				Yii::app()->db->createCommand()
+					->insert('rate', array(
+						'title' => 		$this->nameList[$curRate],
+						'season_uid' => $season['uid'],
+					));
+			}
+		}
+		return true;
 	}
 
 	/**

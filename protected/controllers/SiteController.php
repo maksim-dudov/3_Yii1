@@ -129,12 +129,32 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Заполняет имеющиеся сезоны набором случайных тарифов
+	 */
+	public function actionCreateAllRates()
+	{
+		$season = new Rate();
+		$season->fillSeasonsWithRates();
+		$this->redirect($this->createUrl('site/init'), 301);
+	}
+
+	/**
 	 * Удаляет все имеющиеся сезоны.
 	 */
 	public function actionDropAllSeasons()
 	{
 		$season = new Season();
 		$season->dropAllSeasons();
+		$this->redirect($this->createUrl('site/init'), 301);
+	}
+
+	/**
+	 * Удаляет все имеющиеся тарифы.
+	 */
+	public function actionDropAllRates()
+	{
+		$rate = new Rate();
+		$rate->dropAllRates();
 		$this->redirect($this->createUrl('site/init'), 301);
 	}
 
