@@ -12,7 +12,7 @@ foreach($currentState['hotels'] as $hotel)
         foreach($currentState['state'][$hotel['title']] as $season)
         {
             $echo .= '<li>';
-            $echo .= $season['start'].' - '.$season['end'];
+            $echo .= $season['start'].' - '.$season['end'] . ' | ' . $season['uid'] . ' | '. $season['title'];
             $echo .= '</li>';
         }
         $echo .= '</ul>';

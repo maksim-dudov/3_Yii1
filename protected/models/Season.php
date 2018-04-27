@@ -12,6 +12,22 @@
  */
 class Season extends CActiveRecord
 {
+
+	/**
+	 * @var array список возможных названий сезонов
+	 */
+	protected $seasonsNameList = array(
+		'Низкий сезон',
+		'Средний сезон',
+		'Высокий сезон',
+		'Пиковый сезон',
+		'Лётный сезон',
+		'Зимний сезон',
+		'Осенний сезон',
+		'Весенний сезон',
+		'Горнолыжный сезон'
+	);
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -134,7 +150,7 @@ class Season extends CActiveRecord
 
 				Yii::app()->db->createCommand()
 					->insert('season', array(
-						'title' => 		'Сезон',
+						'title' => 		$this->generateRandomSesonName(),
 						'hotel_uid' => 	$hotel['uid'],
 						'start' => 		$start->modify('+'.$start_shift.' day')->format('Y-m-d'),
 						'end' => 		$end->modify('+'.$end_shift.' day')->format('Y-m-d')
@@ -157,5 +173,14 @@ class Season extends CActiveRecord
 			->select('uid,title,hotel_uid,start,end')
 			->from('season')
 			->queryAll();
+	}
+
+	/**
+	 * Возвращает случайное название для сезона.
+	 * @return string название сезона
+	 */
+	protected function generateRandomSesonName()
+	{
+		return $this->seasonsNameList[array_rand($this->seasonsNameList)];
 	}
 }
