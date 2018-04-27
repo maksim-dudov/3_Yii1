@@ -16,7 +16,7 @@ class Season extends CActiveRecord
 	/**
 	 * @var array список возможных названий сезонов
 	 */
-	protected $seasonsNameList = array(
+	protected $nameList = array(
 		'Низкий сезон',
 		'Средний сезон',
 		'Высокий сезон',
@@ -181,6 +181,6 @@ class Season extends CActiveRecord
 	 */
 	protected function generateRandomSesonName()
 	{
-		return $this->seasonsNameList[array_rand($this->seasonsNameList)];
+		return $this->nameList[array_rand($this->nameList)];
 	}
 }
