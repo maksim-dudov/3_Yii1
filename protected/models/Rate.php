@@ -140,11 +140,11 @@ class Rate extends CActiveRecord
 	}
 
 	/**
-	 * Возвращает случайное название для тарифа.
-	 * @return string название сезона
+	 * Возвращает случайный набор тарифов, от 2 до 5.
+	 * @return array набор ключей к названиям тарифов
 	 */
-	protected function generateRandomName()
+	protected function getRandomRates()
 	{
-		return $this->nameList[array_rand($this->nameList)];
+		return array_rand($this->nameList,rand(2,5));
 	}
 }
