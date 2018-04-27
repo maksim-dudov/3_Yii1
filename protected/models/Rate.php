@@ -119,7 +119,8 @@ class Rate extends CActiveRecord
 	 */
 	public function dropAllRates()
 	{
-		return false;
+		return Yii::app()->db->createCommand()
+			->delete('rate');
 	}
 
 	/**
@@ -128,15 +129,6 @@ class Rate extends CActiveRecord
 	public function fillSeasonsWithRates()
 	{
 		return false;
-	}
-
-	/**
-	 * Возвращает текущее состояние - набо существующих записей в БД
-	 */
-	static public function getCurrentState()
-	{
-		return Yii::app()->db->createCommand()
-			->delete('rate');
 	}
 
 	/**
