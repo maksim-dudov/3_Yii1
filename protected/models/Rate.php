@@ -135,8 +135,20 @@ class Rate extends CActiveRecord
 	 */
 	static public function getCurrentState()
 	{
-		$return = [];
-		return $return;
+		return Yii::app()->db->createCommand()
+			->delete('rate');
+	}
+
+	/**
+	 * Возвращает текущее состояние - набор имеющихся в базе тарифов
+	 * @return array список тарифов
+	 */
+	static public function getCurrentState()
+	{
+		return Yii::app()->db->createCommand()
+			->select('uid,title,season_uid')
+			->from('rate')
+			->queryAll();
 	}
 
 	/**
