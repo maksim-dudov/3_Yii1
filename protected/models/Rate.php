@@ -11,6 +11,24 @@
 class Rate extends CActiveRecord
 {
 	/**
+	 * @var array список возможных названий сезонов
+	 */
+	protected $nameList = array(
+		'Стандартный тариф',
+		'Невозвратный тариф',
+		'Базовый тариф',
+		'Корпоративный тариф',
+		'Групповой тариф',
+		'Rack rate',
+		'BAR',
+		'Best Available rate',
+		'LAR',
+		'Lowest Available rate',
+		'Non-refundable rate',
+		'NON-REF'
+	);
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
@@ -119,5 +137,14 @@ class Rate extends CActiveRecord
 	{
 		$return = [];
 		return $return;
+	}
+
+	/**
+	 * Возвращает случайное название для тарифа.
+	 * @return string название сезона
+	 */
+	protected function generateRandomName()
+	{
+		return $this->nameList[array_rand($this->nameList)];
 	}
 }
