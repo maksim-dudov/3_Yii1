@@ -13,7 +13,7 @@ class Hotel extends CActiveRecord
 	 * Максимальное число отелей
 	 * @var int
 	 */
-	protected $hotelsLimit = 10;
+	protected $hotelsLimit = 100;
 
 	/**
 	 * @return string the associated database table name

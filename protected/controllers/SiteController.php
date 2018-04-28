@@ -185,11 +185,12 @@ class SiteController extends Controller
 	{
 		$hotels = Hotel::getCurrentState();
 		$seasons = Season::getCurrentState();
+		$rates = Rate::getCurrentState();
 
 		$currentState = [];
 		$currentState['hotels'] = 	$hotels;
 		$currentState['seasons'] = 	$seasons;
-//		$currentState['rates'] = 	Rate::getCurrentState();
+		$currentState['rates'] = 	$rates;
 
 		$return = [];
 		foreach($hotels as $hotel) {
@@ -197,7 +198,14 @@ class SiteController extends Controller
 			foreach($seasons as $season) {
 				if ($season['hotel_uid'] == $hotel['uid'])
 				{
-					$return[$hotel['title']][] = $season;
+					$return[$hotel['title']][$season['uid']] = $season;
+				}
+			}
+			foreach($return[$hotel['title']] as $key=>$cur_season) {
+				foreach($rates as $rate) {
+					if ($rate['season_uid'] == $cur_season['uid']) {
+						$return[$hotel['title']][$key]['rates'][$rate['uid']] = $rate;
+					}
 				}
 			}
 		}
