@@ -132,14 +132,43 @@ class Rate extends CActiveRecord
 		foreach($seasons as $season){
 			$ratesFormCurrentPeriod = $this->getRandomRates();
 			foreach($ratesFormCurrentPeriod as $curRate){
-				Yii::app()->db->createCommand()
-					->insert('rate', array(
-						'title' => 		$this->nameList[$curRate],
-						'season_uid' => $season['uid'],
-					));
+				$this->saveRateByQuery(
+//				$this->saveRateBySave(
+					$this->nameList[$curRate],
+					$season['uid']
+				);
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Сохраняет тариф по прямому запросу
+	 * @param $title название тарифа
+	 * @param $season_uid идентификатор сезона
+	 * @return результат создания новой строки в таблице
+	 */
+	protected function saveRateByQuery($title,$season_uid)
+	{
+		return Yii::app()->db->createCommand()
+			->insert('rate', array(
+				'title' => $title,
+				'season_uid' => $season_uid,
+			));
+	}
+
+	/**
+	 * Сохраняет тариф через фреймворк
+	 * @param $title название тарифа
+	 * @param $season_uid идентификатор сезона
+	 * @return результат метода сохранения
+	 */
+	protected function saveRateBySave($title,$season_uid)
+	{
+		$newRate = new Rate();
+		$newRate->title = $title;
+		$newRate->season_uid = $season_uid;
+		return $newRate->save();
 	}
 
 	/**

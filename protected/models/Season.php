@@ -182,7 +182,7 @@ class Season extends CActiveRecord
 	}
 
 	/**
-	 * Сохраняет сезон через фреймфорк
+	 * Сохраняет сезон через фреймворк
 	 * @param $title название сезона
 	 * @param $hotel_uid идентификатор отеля
 	 * @param $start начало сезона
