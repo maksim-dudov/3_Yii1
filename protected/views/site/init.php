@@ -1,8 +1,7 @@
 <p>Существующие отели:</p>
 
-<ul>
 <?php
-$echo = '';
+$echo = '<ul>';
 foreach($currentState['hotels'] as $hotel)
 {
     $echo .= '<li>'.$hotel['title'];
@@ -30,9 +29,15 @@ foreach($currentState['hotels'] as $hotel)
     }
     $echo .= '</li>';
 }
+$echo .= '</ul>';
+
+$echo .= '<br /><br />';
+$echo .= 'get - ' . (isset($get_time)?sprintf("%01.2f",$get_time):'na') . '<br />';
+$echo .= 'del - ' . (isset($del_time)?sprintf("%01.2f",$del_time):'na') . '<br />';
+$echo .= '<br /><br />';
+
 echo $echo;
 ?>
-</ul>
 
 <?php
 echo CHtml::link('Создать все отели',array('site/createAllHotels'));

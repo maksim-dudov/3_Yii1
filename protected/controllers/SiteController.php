@@ -133,9 +133,16 @@ class SiteController extends Controller
 	 */
 	public function actionCreateAllRates()
 	{
+		$currentStateTime = microtime(true);
 		$season = new Rate();
 		$season->fillSeasonsWithRates();
-		$this->redirect($this->createUrl('site/init'), 301);
+		$this->render(
+			'init',
+			array(
+				'currentState' => $currentState,
+				'get_time' => microtime(true)-$currentStateTime
+			)
+		);
 	}
 
 	/**
@@ -153,9 +160,23 @@ class SiteController extends Controller
 	 */
 	public function actionDropAllRates()
 	{
+		$time = microtime(true);
 		$rate = new Rate();
 		$rate->dropAllRates();
-		$this->redirect($this->createUrl('site/init'), 301);
+		$delTime = microtime(true)-$time;
+
+		$time = microtime(true);
+		$currentState = self::getCurrentState();
+		$getTime = microtime(true)-$time;
+
+		$this->render(
+			'init',
+			array(
+				'currentState' => $currentState,
+				'get_time' => $getTime,
+				'del_time' => $delTime
+			)
+		);
 	}
 
 	/**
@@ -173,8 +194,15 @@ class SiteController extends Controller
 	 */
 	public function actionInit()
 	{
+		$currentStateTime = microtime(true);
 		$currentState = self::getCurrentState();
-		$this->render('init',array('currentState' => $currentState));
+		$this->render(
+			'init',
+			array(
+				'currentState' => $currentState,
+				'get_time' => microtime(true)-$currentStateTime
+			)
+		);
 	}
 
 	/**
