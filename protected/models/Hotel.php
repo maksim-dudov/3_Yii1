@@ -112,7 +112,7 @@ class Hotel extends CActiveRecord
 	public function createAllHotels()
 	{
 		do{
-			$this->createRandomHotels();
+			$this->createRandomHotelsBySave();
 		} while(count($this->getCurrentState())<$this->hotelsLimit);
 	}
 
@@ -143,6 +143,36 @@ class Hotel extends CActiveRecord
 				->insert('hotel', array(
 					'title'=>$newHotelTitle,
 				));
+	}
+
+	/**
+	 * Метод создаёт случайный отель. Имя создаёт рандомно
+	 * Не создаёт, если отель с таким именем уже существует.
+	 * @return bool
+	 */
+	public function createRandomHotelBySave()
+	{
+		$existingList=$this->getCurrentState();
+		if(count($existingList)>=$this->hotelsLimit)
+			return false;
+
+		$doesUniquePossible=false;
+		for($i=1; $i<=$this->hotelsLimit^2; $i++){
+			$newHotelTitle='Hotel_'.rand(1,$this->hotelsLimit);
+			$needle['title']=$newHotelTitle;
+			if(in_array($needle,$existingList)===false) {
+				$doesUniquePossible=true;
+				break;
+			}
+			unset($needle);
+		}
+
+		$newHotel = new Hotel();
+		$newHotel->title = $newHotelTitle;
+
+		return $doesUniquePossible===false
+			? false
+			: $newHotel->save();
 	}
 
 	/**
