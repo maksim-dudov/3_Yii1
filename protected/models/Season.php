@@ -147,19 +147,54 @@ class Season extends CActiveRecord
 				$seasons[$hotel['title']][$i]['start'] = $start->modify('+'.$start_shift.' day')->format('Y-m-d');
 				$seasons[$hotel['title']][$i]['end'] = $end->modify('+'.$end_shift.' day')->format('Y-m-d');
 
-				Yii::app()->db->createCommand()
-					->insert('season', array(
-						'title' => 		$this->generateRandomName(),
-						'hotel_uid' => 	$hotel['uid'],
-						'start' => 		$start->modify('+'.$start_shift.' day')->format('Y-m-d'),
-						'end' => 		$end->modify('+'.$end_shift.' day')->format('Y-m-d')
-					));
+				$this->saveSeasonBySave(
+//				$this->saveSeasonByQuery(
+					$this->generateRandomName(),
+					$hotel['uid'],
+					$start->modify('+'.$start_shift.' day')->format('Y-m-d'),
+					$end->modify('+'.$end_shift.' day')->format('Y-m-d')
+				);
 
 				$start_shift = $end_shift+1;
 				$i++;
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Сохраняет сезон по прямому запросу
+	 * @param $title название сезона
+	 * @param $hotel_uid идентификатор отеля
+	 * @param $start начало сезона
+	 * @param $end конец сезона
+	 */
+	protected function saveSeasonByQuery($title,$hotel_uid,$start,$end)
+	{
+		Yii::app()->db->createCommand()
+			->insert('season', array(
+				'title' => 		$title,
+				'hotel_uid' => 	$hotel_uid,
+				'start' => 		$start,
+				'end' => 		$end
+			));
+	}
+
+	/**
+	 * Сохраняет сезон через фреймфорк
+	 * @param $title название сезона
+	 * @param $hotel_uid идентификатор отеля
+	 * @param $start начало сезона
+	 * @param $end конец сезона
+	 */
+	protected function saveSeasonBySave($title,$hotel_uid,$start,$end)
+	{
+		$newSeason = new Season();
+		$newSeason->title = $title;
+		$newSeason->hotel_uid = $hotel_uid;
+		$newSeason->start = $start;
+		$newSeason->end = $end;
+		$newSeason->save();
 	}
 
 	/**
