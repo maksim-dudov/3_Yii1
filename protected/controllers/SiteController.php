@@ -113,9 +113,23 @@ class SiteController extends Controller
 	 */
 	public function actionCreateAllHotels()
 	{
+		$time = microtime(true);
 		$hotel = new Hotel();
 		$hotel->createAllHotels();
-		$this->redirect($this->createUrl('site/init'), 301);
+		$addTime = microtime(true)-$time;
+
+		$time = microtime(true);
+		$currentState = self::getCurrentState();
+		$getTime = microtime(true)-$time;
+
+		$this->render(
+			'init',
+			array(
+				'currentState' => $currentState,
+				'get_time' => $getTime,
+				'add_time' => $addTime
+			)
+		);
 	}
 
 	/**
@@ -123,9 +137,23 @@ class SiteController extends Controller
 	 */
 	public function actionCreateAllSeasons()
 	{
+		$time = microtime(true);
 		$season = new Season();
 		$season->fillHotelsWithSeasons();
-		$this->redirect($this->createUrl('site/init'), 301);
+		$addTime = microtime(true)-$time;
+
+		$time = microtime(true);
+		$currentState = self::getCurrentState();
+		$getTime = microtime(true)-$time;
+
+		$this->render(
+			'init',
+			array(
+				'currentState' => $currentState,
+				'get_time' => $getTime,
+				'add_time' => $addTime
+			)
+		);
 	}
 
 	/**
@@ -133,14 +161,21 @@ class SiteController extends Controller
 	 */
 	public function actionCreateAllRates()
 	{
-		$currentStateTime = microtime(true);
+		$time = microtime(true);
 		$season = new Rate();
 		$season->fillSeasonsWithRates();
+		$addTime = microtime(true)-$time;
+
+		$time = microtime(true);
+		$currentState = self::getCurrentState();
+		$getTime = microtime(true)-$time;
+
 		$this->render(
 			'init',
 			array(
 				'currentState' => $currentState,
-				'get_time' => microtime(true)-$currentStateTime
+				'get_time' => $getTime,
+				'add_time' => $addTime
 			)
 		);
 	}
@@ -184,9 +219,23 @@ class SiteController extends Controller
 	 */
 	public function actionDropAllHotels()
 	{
+		$time = microtime(true);
 		$hotel = new Hotel();
 		$hotel->dropAllHotels();
-		$this->redirect($this->createUrl('site/init'), 301);
+		$delTime = microtime(true)-$time;
+
+		$time = microtime(true);
+		$currentState = self::getCurrentState();
+		$getTime = microtime(true)-$time;
+
+		$this->render(
+			'init',
+			array(
+				'currentState' => $currentState,
+				'get_time' => $getTime,
+				'del_time' => $delTime
+			)
+		);
 	}
 
 	/**

@@ -33,6 +33,7 @@ $echo .= '</ul>';
 
 $echo .= '<br /><br />';
 $echo .= 'get - ' . (isset($get_time)?sprintf("%01.2f",$get_time):'na') . '<br />';
+$echo .= 'add - ' . (isset($add_time)?sprintf("%01.2f",$add_time):'na') . '<br />';
 $echo .= 'del - ' . (isset($del_time)?sprintf("%01.2f",$del_time):'na') . '<br />';
 $echo .= '<br /><br />';
 
