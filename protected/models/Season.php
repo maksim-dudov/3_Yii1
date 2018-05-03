@@ -168,10 +168,11 @@ class Season extends CActiveRecord
 	 * @param $hotel_uid идентификатор отеля
 	 * @param $start начало сезона
 	 * @param $end конец сезона
+	 * @return результат создания новой строки в таблице
 	 */
 	protected function saveSeasonByQuery($title,$hotel_uid,$start,$end)
 	{
-		Yii::app()->db->createCommand()
+		return Yii::app()->db->createCommand()
 			->insert('season', array(
 				'title' => 		$title,
 				'hotel_uid' => 	$hotel_uid,
@@ -186,6 +187,7 @@ class Season extends CActiveRecord
 	 * @param $hotel_uid идентификатор отеля
 	 * @param $start начало сезона
 	 * @param $end конец сезона
+	 * @return результат метода сохранения
 	 */
 	protected function saveSeasonBySave($title,$hotel_uid,$start,$end)
 	{
@@ -194,7 +196,7 @@ class Season extends CActiveRecord
 		$newSeason->hotel_uid = $hotel_uid;
 		$newSeason->start = $start;
 		$newSeason->end = $end;
-		$newSeason->save();
+		return $newSeason->save();
 	}
 
 	/**
