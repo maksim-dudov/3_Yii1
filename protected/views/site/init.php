@@ -14,15 +14,17 @@ foreach($currentState['hotels'] as $hotel)
             $echo .= '<li>';
             $echo .= $season['start'].' - '.$season['end'] . ' | ' . $season['uid'] . ' | '. $season['title'];
             $echo .= '</li>';
-
-            $echo .= '<ul>';
-            foreach($season['rates'] as $rate)
+            if (isset($season['rates']))
             {
-                $echo .= '<li>';
-                $echo .= $rate['title'].' | '.$rate['uid'];
-                $echo .= '</li>';
+                $echo .= '<ul>';
+                foreach($season['rates'] as $rate)
+                {
+                    $echo .= '<li>';
+                    $echo .= $rate['title'].' | '.$rate['uid'];
+                    $echo .= '</li>';
+                }
+                $echo .= '</ul>';
             }
-            $echo .= '</ul>';
         }
         $echo .= '</ul>';
     }
