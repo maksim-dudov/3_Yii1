@@ -112,7 +112,7 @@ class Hotel extends CActiveRecord
 	public function createAllHotels()
 	{
 		do{
-			$this->createRandomHotelsBySave();
+			$this->createRandomHotel();
 		} while(count($this->getCurrentState())<$this->hotelsLimit);
 	}
 
@@ -121,28 +121,17 @@ class Hotel extends CActiveRecord
 	 * Имена задают по маске рандомно.
 	 * Не создаёт, если отель с таким именем уже существует.
 	 */
-	public function createRandomHotels()
+	public function createRandomHotel()
 	{
-		$existingList=$this->getCurrentState();
-		if(count($existingList)>=$this->hotelsLimit)
-			return false;
+		$newHotelTitle = $this->getUniqueHotelName();
 
-		$doesUniquePossible=false;
-		for($i=1; $i<=$this->hotelsLimit^2; $i++){
-			$newHotelTitle='Hotel_'.rand(1,$this->hotelsLimit);
-			$needle['title']=$newHotelTitle;
-			if(in_array($needle,$existingList)===false) {
-				$doesUniquePossible=true;
-				break;
-			}
-			unset($needle);
-		}
-		return $doesUniquePossible===false
+		return $newHotelTitle===false
 			? false
 			: Yii::app()->db->createCommand()
 				->insert('hotel', array(
 					'title'=>$newHotelTitle,
 				));
+
 	}
 
 	/**
@@ -152,6 +141,15 @@ class Hotel extends CActiveRecord
 	 */
 	public function createRandomHotelBySave()
 	{
+		$newHotel = new Hotel();
+		$newHotel->title = $this->getUniqueHotelName();
+
+		return $newHotel->title===false
+			? false
+			: $newHotel->save();
+	}
+
+	protected function getUniqueHotelName(){
 		$existingList=$this->getCurrentState();
 		if(count($existingList)>=$this->hotelsLimit)
 			return false;
@@ -166,13 +164,9 @@ class Hotel extends CActiveRecord
 			}
 			unset($needle);
 		}
-
-		$newHotel = new Hotel();
-		$newHotel->title = $newHotelTitle;
-
 		return $doesUniquePossible===false
 			? false
-			: $newHotel->save();
+			: $newHotelTitle;
 	}
 
 	/**
