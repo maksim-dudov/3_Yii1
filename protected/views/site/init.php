@@ -19,7 +19,8 @@ foreach($currentState['hotels'] as $hotel)
                 foreach($season['rates'] as $rate)
                 {
                     $echo .= '<li>';
-                    $echo .= $rate['title'].' | '.$rate['uid'];
+                    $echo .= $rate;
+//                    $echo .= $rate['title'].' | '.$rate['uid'];
                     $echo .= '</li>';
                 }
                 $echo .= '</ul>';
