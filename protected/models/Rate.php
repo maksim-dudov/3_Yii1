@@ -61,6 +61,7 @@ class Rate extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'season'=>array(self::BELONGS_TO, 'Season','season_uid')
 		);
 	}
 
@@ -181,6 +182,11 @@ class Rate extends CActiveRecord
 			->select('uid,title,season_uid')
 			->from('rate')
 			->queryAll();
+	}
+
+	static public function getCurrentStateByRel()
+	{
+		return self::model()->with('season')->findAll();
 	}
 
 	/**
