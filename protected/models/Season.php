@@ -61,7 +61,9 @@ class Season extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'hotel'=>array(self::BELONGS_TO, 'Hotel','hotel_uid')
+			'hotel'=>array(self::BELONGS_TO, 'Hotel','hotel_uid'),
+			'rate'=>array(self::HAS_MANY, 'Rate','season_uid')
+
 		);
 	}
 

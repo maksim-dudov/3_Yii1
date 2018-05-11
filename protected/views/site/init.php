@@ -7,6 +7,26 @@ $echo = '<ul>';
 foreach($currentState['hotels'] as $hotel)
 {
     $echo .= '<li>'.$hotel->title;
+
+    if (count($hotel->season)) {
+        $echo .= '<ul>';
+        foreach ($hotel->season as $season) {
+            $echo .= '<li>';
+            $echo .= $season->start.' - '.$season->end . ' | ' . $season->uid . ' | '. $season->title;
+            $echo .= '</li>';
+            if (count($season->rate)) {
+                $echo .= '<ul>';
+                foreach ($season->rate as $rate) {
+                    $echo .= '<li>';
+                    $echo .= $rate->title.' | '.$rate->uid;
+                    $echo .= '</li>';
+                }
+                $echo .= '</ul>';
+            }
+        }
+        $echo .= '</ul>';
+    }
+    /*
     if (isset($currentState['state'][$hotel['title']]))
     {
         /*
@@ -31,7 +51,7 @@ foreach($currentState['hotels'] as $hotel)
         }
         $echo .= '</ul>';
         */
-    }
+    //}
     $echo .= '</li>';
 }
 $echo .= '</ul>';
