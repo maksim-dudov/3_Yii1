@@ -260,24 +260,33 @@ class SiteController extends Controller
 	 */
 	public static function getCurrentState()
 	{
-		$hotels = Hotel::getCurrentState();
-		$seasons = Season::getCurrentState();
-		$rates = Rate::getCurrentStateByRel();
+		$hotels = Hotel::getCurrentStateByRel();
+//		$seasons = Season::getCurrentStateByRel();
+//		$rates = Rate::getCurrentStateByRel();
 
 		$currentState = [];
 		$currentState['hotels'] = 	$hotels;
-		$currentState['seasons'] = 	$seasons;
-		$currentState['rates'] = 	$rates;
+//		$currentState['seasons'] = 	$seasons;
+//		$currentState['rates'] = 	$rates;
+
+//		print_r($hotels);
+//		die();
 
 		$return = [];
 		foreach($hotels as $hotel) {
-			$return[$hotel['title']] = array();
-			foreach($seasons as $season) {
+			$return[$hotel->uid] = $hotel;
+			//$return[$hotel['title']] = array();
+//			foreach($seasons as $season) {
+//				if ($season->hotel_uid == $hotel['uid'])
+//					$return[$hotel['title']][$season->uid] = $season->title;
+				/*
 				if ($season['hotel_uid'] == $hotel['uid'])
 				{
 					$return[$hotel['title']][$season['uid']] = $season;
 				}
-			}
+				*/
+//			}
+			/*
 			foreach($return[$hotel['title']] as $key=>$cur_season) {
 				foreach($rates as $rate) {
 					if ($rate->season->uid == $cur_season['uid']) {
@@ -285,6 +294,7 @@ class SiteController extends Controller
 					}
 				}
 			}
+			*/
 		}
 		$currentState['state'] = $return;
 

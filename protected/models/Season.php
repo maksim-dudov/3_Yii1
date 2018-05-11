@@ -61,6 +61,7 @@ class Season extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'hotel'=>array(self::BELONGS_TO, 'Hotel','hotel_uid')
 		);
 	}
 
@@ -209,6 +210,11 @@ class Season extends CActiveRecord
 			->select('uid,title,hotel_uid,start,end')
 			->from('season')
 			->queryAll();
+	}
+
+	static public function getCurrentStateByRel()
+	{
+		return self::model()->with('hotel')->findAll();
 	}
 
 	/**

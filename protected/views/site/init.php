@@ -1,12 +1,15 @@
 <p>Существующие отели:</p>
 
 <?php
+//print_r($currentState);
+//die();
 $echo = '<ul>';
 foreach($currentState['hotels'] as $hotel)
 {
-    $echo .= '<li>'.$hotel['title'];
+    $echo .= '<li>'.$hotel->title;
     if (isset($currentState['state'][$hotel['title']]))
     {
+        /*
         $echo .= '<ul>';
         foreach($currentState['state'][$hotel['title']] as $season)
         {
@@ -27,6 +30,7 @@ foreach($currentState['hotels'] as $hotel)
             }
         }
         $echo .= '</ul>';
+        */
     }
     $echo .= '</li>';
 }
