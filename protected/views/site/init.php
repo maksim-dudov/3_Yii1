@@ -1,8 +1,6 @@
 <p>Существующие отели:</p>
 
 <?php
-//print_r($currentState);
-//die();
 $echo = '<ul>';
 foreach($currentState['hotels'] as $hotel)
 {
