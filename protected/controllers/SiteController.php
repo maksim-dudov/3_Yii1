@@ -246,7 +246,7 @@ class SiteController extends Controller
 		$currentStateTime = microtime(true);
 		$currentState = self::getCurrentState();
 		$this->render(
-			'init',
+			'init_by_orm',
 			array(
 				'currentState' => $currentState,
 				'get_time' => microtime(true)-$currentStateTime
