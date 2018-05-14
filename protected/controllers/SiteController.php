@@ -244,7 +244,7 @@ class SiteController extends Controller
 	public function actionInit()
 	{
 		$currentStateTime = microtime(true);
-		$currentState = self::getCurrentState();
+		$currentState = self::getCurrentStateByRel();
 		$this->render(
 			'init_by_orm',
 			array(
@@ -252,6 +252,15 @@ class SiteController extends Controller
 				'get_time' => microtime(true)-$currentStateTime
 			)
 		);
+	}
+
+	/**
+	 * Возвращает текущее состояние через relations
+	 * @return array
+	 */
+	public static function getCurrentStateByRel()
+	{
+		return array('hotels'=>Hotel::getCurrentStateByRel());
 	}
 
 	/**
