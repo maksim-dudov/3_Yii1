@@ -61,7 +61,8 @@ class Rate extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'season'=>array(self::BELONGS_TO, 'Season','season_uid')
+			'season'=>array(self::BELONGS_TO, 'Season','season_uid'),
+			'price'=>array(self::HAS_MANY, 'Price','rate_uid')
 		);
 	}
 

@@ -43,6 +43,7 @@ class Block extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'hotel'=>array(self::BELONGS_TO, 'Hotel','hotel_uid'),
+			'price'=>array(self::HAS_MANY, 'Price','block_uid')
 		);
 	}
 
