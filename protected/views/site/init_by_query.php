@@ -2,37 +2,17 @@
 
 <?php
 $echo = '<ul>';
-foreach($currentState['hotels'] as $hotel)
+foreach($currentState['state'] as $hotel)
 {
-    $echo .= '<li>'.$hotel->title;
-
-    if (count($hotel->season)) {
-        $echo .= '<ul>';
-        foreach ($hotel->season as $season) {
-            $echo .= '<li>';
-            $echo .= $season->start.' - '.$season->end . ' | ' . $season->uid . ' | '. $season->title;
-            $echo .= '</li>';
-            if (count($season->rate)) {
-                $echo .= '<ul>';
-                foreach ($season->rate as $rate) {
-                    $echo .= '<li>';
-                    $echo .= $rate->title.' | '.$rate->uid;
-                    $echo .= '</li>';
-                }
-                $echo .= '</ul>';
-            }
-        }
-        $echo .= '</ul>';
-    }
-    /*
-    if (isset($currentState['state'][$hotel['title']]))
+    if ($hotel['title'])
     {
-        /*
+        $echo .= '<li>'.$hotel['title'];
+
         $echo .= '<ul>';
-        foreach($currentState['state'][$hotel['title']] as $season)
+        foreach($hotel['seasons'] as $season)
         {
             $echo .= '<li>';
-            $echo .= $season['start'].' - '.$season['end'] . ' | ' . $season['uid'] . ' | '. $season['title'];
+            $echo .= $season['start'].' - '.$season['end'] . ' | ' . $season['title'];
             $echo .= '</li>';
             if (isset($season['rates']))
             {
@@ -40,16 +20,14 @@ foreach($currentState['hotels'] as $hotel)
                 foreach($season['rates'] as $rate)
                 {
                     $echo .= '<li>';
-                    $echo .= $rate;
-//                    $echo .= $rate['title'].' | '.$rate['uid'];
+                    $echo .= $rate['title'];
                     $echo .= '</li>';
                 }
                 $echo .= '</ul>';
             }
         }
         $echo .= '</ul>';
-        */
-    //}
+    }
     $echo .= '</li>';
 }
 $echo .= '</ul>';

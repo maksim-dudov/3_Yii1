@@ -239,7 +239,8 @@ class SiteController extends Controller
 	}
 
 	/**
-	 * Отображает страницу для установки начальных тестовых данных
+	 * Отображает страницу для установки начальных тестовых данных.
+	 * Данные приходят через relations (ORM).
 	 */
 	public function actionInitByRel()
 	{
@@ -255,7 +256,8 @@ class SiteController extends Controller
 	}
 
 	/**
-	 * Отображает страницу для установки начальных тестовых данных
+	 * Отображает страницу для установки начальных тестовых данных.
+	 * Данные приходят через прямые запросы к базе.
 	 */
 	public function actionInitByQuery()
 	{
@@ -271,7 +273,7 @@ class SiteController extends Controller
 	}
 
 	/**
-	 * Возвращает текущее состояние через relations
+	 * Возвращает текущее состояние через relations.
 	 * @return array
 	 */
 	public static function getCurrentStateByRel()
@@ -280,46 +282,38 @@ class SiteController extends Controller
 	}
 
 	/**
-	 * Возвращает текущее состояние
+	 * Возвращает текущее состояние.
+	 * Получает данные через прямые запросы к базе.
 	 * @return array
 	 */
 	public static function getCurrentState()
 	{
-		$hotels = Hotel::getCurrentStateByRel();
-//		$seasons = Season::getCurrentStateByRel();
-//		$rates = Rate::getCurrentStateByRel();
+		$hotels = Hotel::getCurrentState();
+		$seasons = Season::getCurrentState();
+		$rates = Rate::getCurrentState();
 
 		$currentState = [];
 		$currentState['hotels'] = 	$hotels;
-//		$currentState['seasons'] = 	$seasons;
-//		$currentState['rates'] = 	$rates;
-
-//		print_r($hotels);
-//		die();
+		$currentState['seasons'] = 	$seasons;
+		$currentState['rates'] = 	$rates;
 
 		$return = [];
 		foreach($hotels as $hotel) {
-			$return[$hotel->uid] = $hotel;
-			//$return[$hotel['title']] = array();
-//			foreach($seasons as $season) {
-//				if ($season->hotel_uid == $hotel['uid'])
-//					$return[$hotel['title']][$season->uid] = $season->title;
-				/*
-				if ($season['hotel_uid'] == $hotel['uid'])
-				{
-					$return[$hotel['title']][$season['uid']] = $season;
+			$return[$hotel['uid']] = $hotel;
+			foreach($seasons as $season) {
+				if ($season['hotel_uid'] == $hotel['uid']) {
+					$return[$hotel['uid']]['seasons'][$season['uid']] = $season;
 				}
-				*/
-//			}
-			/*
-			foreach($return[$hotel['title']] as $key=>$cur_season) {
+			}
+
+			foreach($return[$hotel['uid']]['seasons'] as $key=>$cur_season) {
 				foreach($rates as $rate) {
-					if ($rate->season->uid == $cur_season['uid']) {
-						$return[$hotel['title']][$key]['rates'][$rate->uid] = $rate->title;
+					if ($rate['season_uid'] == $cur_season['uid']) {
+						$return[$hotel['uid']]['seasons'][$key]['rates'][$rate['uid']] = $rate;
 					}
 				}
 			}
-			*/
+
 		}
 		$currentState['state'] = $return;
 

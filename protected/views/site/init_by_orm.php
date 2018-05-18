@@ -10,13 +10,13 @@ foreach($currentState['hotels'] as $hotel)
         $echo .= '<ul>';
         foreach ($hotel->season as $season) {
             $echo .= '<li>';
-            $echo .= $season->start.' - '.$season->end . ' | ' . $season->uid . ' | '. $season->title;
+            $echo .= $season->start.' - '.$season->end . ' | ' . $season->title;
             $echo .= '</li>';
             if (count($season->rate)) {
                 $echo .= '<ul>';
                 foreach ($season->rate as $rate) {
                     $echo .= '<li>';
-                    $echo .= $rate->title.' | '.$rate->uid;
+                    $echo .= $rate->title;
                     $echo .= '</li>';
                 }
                 $echo .= '</ul>';
