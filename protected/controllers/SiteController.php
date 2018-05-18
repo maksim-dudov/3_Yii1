@@ -105,7 +105,7 @@ class SiteController extends Controller
 	{
 		$hotel = new Hotel();
 		$hotel->createRandomHotels();
-		$this->redirect($this->createUrl('site/init'), 301);
+		$this->redirect($this->createUrl('site/init_by_rel'), 301);
 	}
 
 	/**
@@ -119,11 +119,11 @@ class SiteController extends Controller
 		$addTime = microtime(true)-$time;
 
 		$time = microtime(true);
-		$currentState = self::getCurrentState();
+		$currentState = self::getCurrentStateByRel();
 		$getTime = microtime(true)-$time;
 
 		$this->render(
-			'init',
+			'init_by_rel',
 			array(
 				'currentState' => $currentState,
 				'get_time' => $getTime,
@@ -134,6 +134,7 @@ class SiteController extends Controller
 
 	/**
 	 * Заполняет имеющиеся отели набором случайных сезонов
+	 * @todo учитывать имеющиеся периоды, чтобы не создавать пересечения
 	 */
 	public function actionCreateAllSeasons()
 	{
@@ -143,11 +144,11 @@ class SiteController extends Controller
 		$addTime = microtime(true)-$time;
 
 		$time = microtime(true);
-		$currentState = self::getCurrentState();
+		$currentState = self::getCurrentStateByRel();
 		$getTime = microtime(true)-$time;
 
 		$this->render(
-			'init',
+			'init_by_rel',
 			array(
 				'currentState' => $currentState,
 				'get_time' => $getTime,
@@ -167,11 +168,11 @@ class SiteController extends Controller
 		$addTime = microtime(true)-$time;
 
 		$time = microtime(true);
-		$currentState = self::getCurrentState();
+		$currentState = self::getCurrentStateByRel();
 		$getTime = microtime(true)-$time;
 
 		$this->render(
-			'init',
+			'init_by_rel',
 			array(
 				'currentState' => $currentState,
 				'get_time' => $getTime,
@@ -185,9 +186,23 @@ class SiteController extends Controller
 	 */
 	public function actionDropAllSeasons()
 	{
+		$time = microtime(true);
 		$season = new Season();
 		$season->dropAllSeasons();
-		$this->redirect($this->createUrl('site/init'), 301);
+		$delTime = microtime(true)-$time;
+
+		$time = microtime(true);
+		$currentState = self::getCurrentStateByRel();
+		$getTime = microtime(true)-$time;
+
+		$this->render(
+			'init_by_rel',
+			array(
+				'currentState' => $currentState,
+				'get_time' => $getTime,
+				'del_time' => $delTime
+			)
+		);
 	}
 
 	/**
@@ -201,11 +216,11 @@ class SiteController extends Controller
 		$delTime = microtime(true)-$time;
 
 		$time = microtime(true);
-		$currentState = self::getCurrentState();
+		$currentState = self::getCurrentStateByRel();
 		$getTime = microtime(true)-$time;
 
 		$this->render(
-			'init',
+			'init_by_rel',
 			array(
 				'currentState' => $currentState,
 				'get_time' => $getTime,
@@ -225,11 +240,11 @@ class SiteController extends Controller
 		$delTime = microtime(true)-$time;
 
 		$time = microtime(true);
-		$currentState = self::getCurrentState();
+		$currentState = self::getCurrentStateByRel();
 		$getTime = microtime(true)-$time;
 
 		$this->render(
-			'init',
+			'init_by_rel',
 			array(
 				'currentState' => $currentState,
 				'get_time' => $getTime,
@@ -247,7 +262,7 @@ class SiteController extends Controller
 		$currentStateTime = microtime(true);
 		$currentState = self::getCurrentStateByRel();
 		$this->render(
-			'init_by_orm',
+			'init_by_rel',
 			array(
 				'currentState' => $currentState,
 				'get_time' => microtime(true)-$currentStateTime
@@ -306,10 +321,12 @@ class SiteController extends Controller
 				}
 			}
 
-			foreach($return[$hotel['uid']]['seasons'] as $key=>$cur_season) {
-				foreach($rates as $rate) {
-					if ($rate['season_uid'] == $cur_season['uid']) {
-						$return[$hotel['uid']]['seasons'][$key]['rates'][$rate['uid']] = $rate;
+			if(isset($return[$hotel['uid']]['seasons'])) {
+				foreach ($return[$hotel['uid']]['seasons'] as $key => $cur_season) {
+					foreach ($rates as $rate) {
+						if ($rate['season_uid'] == $cur_season['uid']) {
+							$return[$hotel['uid']]['seasons'][$key]['rates'][$rate['uid']] = $rate;
+						}
 					}
 				}
 			}

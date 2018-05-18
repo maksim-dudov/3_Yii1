@@ -8,25 +8,24 @@ foreach($currentState['state'] as $hotel)
     {
         $echo .= '<li>'.$hotel['title'];
 
-        $echo .= '<ul>';
-        foreach($hotel['seasons'] as $season)
-        {
-            $echo .= '<li>';
-            $echo .= $season['start'].' - '.$season['end'] . ' | ' . $season['title'];
-            $echo .= '</li>';
-            if (isset($season['rates']))
-            {
-                $echo .= '<ul>';
-                foreach($season['rates'] as $rate)
-                {
-                    $echo .= '<li>';
-                    $echo .= $rate['title'];
-                    $echo .= '</li>';
+        if(isset($hotel['seasons'])) {
+            $echo .= '<ul>';
+            foreach ($hotel['seasons'] as $season) {
+                $echo .= '<li>';
+                $echo .= $season['start'] . ' - ' . $season['end'] . ' | ' . $season['title'];
+                $echo .= '</li>';
+                if (isset($season['rates'])) {
+                    $echo .= '<ul>';
+                    foreach ($season['rates'] as $rate) {
+                        $echo .= '<li>';
+                        $echo .= $rate['title'];
+                        $echo .= '</li>';
+                    }
+                    $echo .= '</ul>';
                 }
-                $echo .= '</ul>';
             }
+            $echo .= '</ul>';
         }
-        $echo .= '</ul>';
     }
     $echo .= '</li>';
 }
