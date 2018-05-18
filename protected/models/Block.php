@@ -96,4 +96,45 @@ class Block extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	/**
+	 * Сохраняет категорию через фреймворк
+	 * @param $title название сезона
+	 * @param $hotel_uid идентификатор отеля
+	 * @param $start начало сезона
+	 * @param $end конец сезона
+	 * @return результат метода сохранения
+	 */
+	protected function saveBlockBySave($title,$hotel_uid)
+	{
+		$newBlock = new Season();
+		$newBlock->title = $title;
+		$newBlock->hotel_uid = $hotel_uid;
+		return $newBlock->save();
+	}
+
+	/**
+	 * Сохраняет категорию по прямому запросу
+	 * @param $title название категории
+	 * @param $hotel_uid идентификатор отеля
+	 * @return результат создания новой строки в таблице
+	 */
+	protected function saveBlockByQuery($title,$hotel_uid)
+	{
+		return Yii::app()->db->createCommand()
+			->insert('season', array(
+				'title' => 		$title,
+				'hotel_uid' => 	$hotel_uid,
+			));
+	}
+
+	/**
+	 * Метод удаляет все категории
+	 * @return void
+	 */
+	public function dropAllBlocks()
+	{
+		return Yii::app()->db->createCommand()
+			->delete('block');
+	}
 }
