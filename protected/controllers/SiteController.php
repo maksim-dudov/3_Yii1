@@ -241,12 +241,28 @@ class SiteController extends Controller
 	/**
 	 * Отображает страницу для установки начальных тестовых данных
 	 */
-	public function actionInit()
+	public function actionInitByRel()
 	{
 		$currentStateTime = microtime(true);
 		$currentState = self::getCurrentStateByRel();
 		$this->render(
 			'init_by_orm',
+			array(
+				'currentState' => $currentState,
+				'get_time' => microtime(true)-$currentStateTime
+			)
+		);
+	}
+
+	/**
+	 * Отображает страницу для установки начальных тестовых данных
+	 */
+	public function actionInitByQuery()
+	{
+		$currentStateTime = microtime(true);
+		$currentState = self::getCurrentState();
+		$this->render(
+			'init_by_query',
 			array(
 				'currentState' => $currentState,
 				'get_time' => microtime(true)-$currentStateTime
