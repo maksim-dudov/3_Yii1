@@ -182,6 +182,30 @@ class SiteController extends Controller
 	}
 
 	/**
+	 * Заполняет имеющиеся отели набором случайных категорий
+	 */
+	public function actionCreateAllBlocks()
+	{
+		$time = microtime(true);
+		$block = new Block();
+		$block ->fillHotelsWithSeasons();
+		$addTime = microtime(true)-$time;
+
+		$time = microtime(true);
+		$currentState = self::getCurrentStateByRel();
+		$getTime = microtime(true)-$time;
+
+		$this->render(
+			'init_by_rel',
+			array(
+				'currentState' => $currentState,
+				'get_time' => $getTime,
+				'add_time' => $addTime
+			)
+		);
+	}
+
+	/**
 	 * Удаляет все имеющиеся сезоны.
 	 */
 	public function actionDropAllSeasons()

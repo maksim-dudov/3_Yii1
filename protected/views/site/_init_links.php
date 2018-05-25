@@ -7,6 +7,8 @@ echo CHtml::link('Создать сезоны в отелях',array('site/creat
 echo '<br /><br />';
 echo CHtml::link('Создать тарифы в сезонах',array('site/createAllRates'));
 echo '<br /><br />';
+echo CHtml::link('Создать категории в отелях',array('site/createAllBlocks'));
+echo '<br /><br />';
 echo '<br /><br />';
 echo CHtml::link('Удалить все отели',array('site/dropAllHotels'));
 echo '<br /><br />';

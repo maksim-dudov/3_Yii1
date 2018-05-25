@@ -10,6 +10,21 @@
  */
 class Block extends CActiveRecord
 {
+
+	/**
+	 * @var array список возможных названий категорий
+	 */
+	protected $nameList = array(
+		'Отдельный номер с удобствами',
+		'Отдельный номер без удобств',
+		'Апартаменты',
+		'Апартаменты с кухней',
+		'Стандартный с двуспальной кроватью',
+		'Стандартный с двумя односпальными кроватями',
+		'8-местный мужской дорм',
+		'8-местный женский дорм',
+	);
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -98,22 +113,6 @@ class Block extends CActiveRecord
 	}
 
 	/**
-	 * Сохраняет категорию через фреймворк
-	 * @param $title название сезона
-	 * @param $hotel_uid идентификатор отеля
-	 * @param $start начало сезона
-	 * @param $end конец сезона
-	 * @return результат метода сохранения
-	 */
-	protected function saveBlockBySave($title,$hotel_uid)
-	{
-		$newBlock = new Season();
-		$newBlock->title = $title;
-		$newBlock->hotel_uid = $hotel_uid;
-		return $newBlock->save();
-	}
-
-	/**
 	 * Сохраняет категорию по прямому запросу
 	 * @param $title название категории
 	 * @param $hotel_uid идентификатор отеля
@@ -136,5 +135,48 @@ class Block extends CActiveRecord
 	{
 		return Yii::app()->db->createCommand()
 			->delete('block');
+	}
+
+	/**
+	 * Возвращает случайное название для категории.
+	 * @return string название категории
+	 */
+	protected function generateRandomName()
+	{
+		return $this->nameList[array_rand($this->nameList)];
+	}
+
+	/**
+	 * Сохраняет категорию через фреймворк
+	 * @param string $title название категории
+	 * @param int $hotel_uid идентификатор отеля
+	 * @return результат метода сохранения
+	 */
+	protected function saveBlockBySave($title,$hotel_uid)
+	{
+		$newItem = new Block();
+		$newItem->title = $title;
+		$newItem->hotel_uid = $hotel_uid;
+		return $newItem->save();
+	}
+
+	/**
+	 * Метод заполняет отели категориями со случайными названиями
+	 */
+	public function fillHotelsWithSeasons()
+	{
+		$hotels = Hotel::getCurrentState();
+		foreach($hotels as $hotel){
+			$i = 0;
+			while($i <= rand(1, count($this->nameList))){
+
+				$this->saveBlockBySave(
+					$this->generateRandomName(),
+					$hotel['uid']
+				);
+				$i++;
+			}
+		}
+		return true;
 	}
 }
