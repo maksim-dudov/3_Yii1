@@ -232,6 +232,30 @@ class SiteController extends Controller
 	/**
 	 * Удаляет все имеющиеся тарифы.
 	 */
+	public function actionDropAllBlocks()
+	{
+		$time = microtime(true);
+		$model = new Block();
+		$model->dropAllBlocks();
+		$delTime = microtime(true)-$time;
+
+		$time = microtime(true);
+		$currentState = self::getCurrentStateByRel();
+		$getTime = microtime(true)-$time;
+
+		$this->render(
+			'init_by_rel',
+			array(
+				'currentState' => $currentState,
+				'get_time' => $getTime,
+				'del_time' => $delTime
+			)
+		);
+	}
+
+	/**
+	 * Удаляет все имеющиеся тарифы.
+	 */
 	public function actionDropAllRates()
 	{
 		$time = microtime(true);

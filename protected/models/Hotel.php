@@ -46,7 +46,8 @@ class Hotel extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'season'=>array(self::HAS_MANY, 'Season','hotel_uid')
+			'season'=>array(self::HAS_MANY, 'Season','hotel_uid'),
+			'blocks'=>array(self::HAS_MANY, 'Block','hotel_uid')
 		);
 	}
 

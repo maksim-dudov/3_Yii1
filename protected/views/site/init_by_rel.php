@@ -7,13 +7,13 @@ foreach($currentState['hotels'] as $hotel)
     $echo .= '<li>'.$hotel->title;
 
     if (count($hotel->season)) {
-        $echo .= '<ul>';
+        $echo .= '<br />Сезоны:<ul>';
         foreach ($hotel->season as $season) {
             $echo .= '<li>';
             $echo .= $season->start.' - '.$season->end . ' | ' . $season->title;
             $echo .= '</li>';
             if (count($season->rate)) {
-                $echo .= '<ul>';
+                $echo .= '<br />Тарифы:<ul>';
                 foreach ($season->rate as $rate) {
                     $echo .= '<li>';
                     $echo .= $rate->title;
@@ -21,6 +21,15 @@ foreach($currentState['hotels'] as $hotel)
                 }
                 $echo .= '</ul>';
             }
+        }
+        $echo .= '</ul>';
+    }
+    if (count($hotel->blocks)) {
+        $echo .= '<br />Категории:<ul>';
+        foreach ($hotel->blocks as $block) {
+            $echo .= '<li>';
+            $echo .= $block->title;
+            $echo .= '</li>';
         }
         $echo .= '</ul>';
     }

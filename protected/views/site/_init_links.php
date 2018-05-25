@@ -15,4 +15,6 @@ echo '<br /><br />';
 echo CHtml::link('Удалить все сезоны',array('site/dropAllSeasons'));
 echo '<br /><br />';
 echo CHtml::link('Удалить все тарифы',array('site/dropAllRates'));
+echo '<br /><br />';
+echo CHtml::link('Удалить все категории',array('site/dropAllBlocks'));
 ?>
