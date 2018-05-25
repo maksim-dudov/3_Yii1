@@ -147,7 +147,7 @@ class Season extends CActiveRecord
 				$start = new DateTime('now');
 				$end = new DateTime('now');
 
-				$seasons[$hotel['title']][$i]['start'] = $start->modify('+'.$start_shift.' day')->format('Y-m-d');
+				$seasons[$hotel['title']][$i]['start'] = $start->modify('+'.$start_shift.' day')->modify('-1 day')->format('Y-m-d');
 				$seasons[$hotel['title']][$i]['end'] = $end->modify('+'.$end_shift.' day')->format('Y-m-d');
 
 				$this->saveSeasonBySave(
